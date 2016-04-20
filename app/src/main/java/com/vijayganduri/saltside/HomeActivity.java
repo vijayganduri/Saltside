@@ -5,11 +5,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vijayganduri.saltside.model.Item;
+import com.vijayganduri.saltside.rest.RestHandler;
+
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = HomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,18 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        RestHandler.getInstance().getFeed(new RestHandler.OnResponseListener() {
+            @Override
+            public void onResponse(List<Item> articles) {
+                Log.d(TAG, "onResponse "+articles);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d(TAG, "onLoad error "+error);
             }
         });
     }
