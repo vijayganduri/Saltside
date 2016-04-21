@@ -3,4 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="no_network">No connectivity</string>
     <string name="error_load">Error loading items</string>
+
+    <string name="font_cond">UniversalisADFStd-Cond.otf</string>
+    <string name="font_bold">UniversalisADFStd-Bold.otf</string>
+    <string name="font_regular">UniversalisADFStd-Regular.otf</string>
+
 </resources>

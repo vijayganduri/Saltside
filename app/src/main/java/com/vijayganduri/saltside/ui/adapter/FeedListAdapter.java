@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.utils.GrayscaleTransformation;
 import com.squareup.picasso.Picasso;
 import com.vijayganduri.saltside.R;
 import com.vijayganduri.saltside.model.Item;
@@ -97,7 +98,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Item item = items.get(position);
         if (!TextUtils.isEmpty(item.getImage())) {
-            Picasso.with(context).load(item.getImage()).placeholder(R.drawable.promo_photography)
+            Picasso.with(context).load(item.getImage()).resizeDimen(R.dimen.list_item_img_width, R.dimen.list_item_img_height)
+                    .transform(new GrayscaleTransformation(Picasso.with(context)))
                     .into(holder.image);
         }
         if (!TextUtils.isEmpty(item.getTitle())) {
