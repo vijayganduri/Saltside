@@ -1,11 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:civ="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="10dp">
+    android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image"
@@ -13,36 +14,36 @@
         android:layout_height="60dp"
         android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@drawable/promo_photography"
-        civ:civ_border_width="0dp" />
+        civ:civ_border_width="1.5dp"
+        civ:civ_border_color="#ccc"/>
 
-    <TextView
+    <com.android.utils.CustomFontTextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-regular"
         android:maxLines="2"
         android:paddingBottom="3dp"
         android:paddingLeft="8dp"
-        android:text="How should I deal with metagaming ?"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="normal" />
+        android:text="terminations map autos sons utilizations"
+        android:textColor="@color/colorHeader1"
+        android:textSize="19sp"
+        android:textAllCaps="true"
+        custom:customTypeface="@string/font_bold" />
 
-    <TextView
+    <com.android.utils.CustomFontTextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-regular"
         android:maxLines="5"
         android:paddingLeft="8dp"
-        android:text="Suzan Drummen"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
+        android:text="sterilizer span ticks continuity hubs procurement vision eggs backups cries gap iron conferences torpedo government catchers restaurant destroyers attribute counsel echo overcurrent classes trip environments forecastle giants conspiracies suppression things rope plans bow blots rescuers incline"
+        android:textColor="@color/colorBody1"
+        android:textSize="17sp"
+        custom:customTypeface="@string/font_regular" />
 
 </RelativeLayout>
