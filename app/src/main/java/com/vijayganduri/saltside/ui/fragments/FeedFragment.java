@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.vijayganduri.saltside.Config;
 import com.vijayganduri.saltside.IntentConstants;
@@ -36,6 +37,9 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    @Bind(R.id.progress)
+    ProgressBar progress;
 
     private LinearLayoutManager mLayoutManager;
     private FeedListAdapter mAdapter;
@@ -80,6 +84,7 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
 
         mAdapter = new FeedListAdapter(mContext, this);
         mRecyclerView.setAdapter(mAdapter);
+        showHideProgress(true);
         fetchFeed();
     }
 
@@ -88,6 +93,7 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
             RestHandler.getInstance().getFeed(getResponseListener());
         } else {
             showToast(R.string.no_network);
+            showHideProgress(false);
         }
     }
 
@@ -96,15 +102,21 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
 
             @Override
             public void onResponse(List<Item> articles) {
+                showHideProgress(false);
                 mAdapter.addItems(articles);
             }
 
             @Override
             public void onError(String error) {
                 Log.d(TAG, "onError : " + error);
+                showHideProgress(false);
                 showToast(R.string.error_load);
             }
         };
+    }
+
+    private void showHideProgress(boolean show){
+        progress.setVisibility(show?View.VISIBLE:View.GONE);
     }
 
     @Override
