@@ -2,6 +2,7 @@ package com.vijayganduri.saltside.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vijayganduri.saltside.Config;
+import com.vijayganduri.saltside.IntentConstants;
 import com.vijayganduri.saltside.R;
 import com.vijayganduri.saltside.eventbus.BusHandler;
 import com.vijayganduri.saltside.model.Item;
 import com.vijayganduri.saltside.rest.RestHandler;
+import com.vijayganduri.saltside.ui.ItemDetailActivity;
 import com.vijayganduri.saltside.ui.adapter.FeedListAdapter;
 import com.vijayganduri.saltside.ui.utils.ConnectivityUtils;
 import com.vijayganduri.saltside.ui.utils.DividerItemDecoration;
@@ -36,6 +40,7 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
     private LinearLayoutManager mLayoutManager;
     private FeedListAdapter mAdapter;
     private Activity mActivity;
+    private Context mContext;
 
     private String tagType;
 
@@ -45,6 +50,12 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
     }
 
     public FeedFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getContext();
     }
 
     @Override
@@ -67,8 +78,7 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
 
-        mAdapter = new FeedListAdapter(getActivity());
-        mAdapter.setOnItemClickListener(this);
+        mAdapter = new FeedListAdapter(mContext, this);
         mRecyclerView.setAdapter(mAdapter);
         fetchFeed();
     }
@@ -99,12 +109,9 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
 
     @Override
     public void onItemClick(int position, Item item) {
-/*        Intent intent = new Intent(getContext(), ItemDetailActivity.class);
-        intent.putExtra(Config.INTENT_ARTICLE_URL, item.getLink());
-        intent.putExtra(Config.INTENT_ARTICLE_TITLE, item.getTitle());
-        intent.putExtra(Config.INTENT_ARTICLE_PUBLISHER, item.getOwner().getDisplay_name());
-        intent.putExtra(Config.INTENT_PARENT_ACTIVITY, Config.INTENT_ACTIVITY_HOME);
-        startActivity(intent);*/
+        Intent intent = new Intent(getContext(), ItemDetailActivity.class);
+        intent.putExtra(IntentConstants.ITEM, item);
+        startActivity(intent);
     }
 
     private void showToast(int resId) {
@@ -128,6 +135,7 @@ public class FeedFragment extends Fragment implements FeedListAdapter.OnItemClic
     @Override
     public void onDestroyView() {
         BusHandler.getInstance().unregister(this);
+        ButterKnife.unbind(this);
         super.onDestroyView();
     }
 }

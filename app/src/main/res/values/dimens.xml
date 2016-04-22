@@ -6,4 +6,6 @@
 
     <dimen name="list_item_img_width">60dp</dimen>
     <dimen name="list_item_img_height">60dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
