@@ -51,6 +51,11 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
         this.context = context;
     }
 
+    public FeedListAdapter(Context context, OnItemClickListener listener) {
+        this.context = context;
+        this.mOnItemClickListener = listener;
+    }
+
     public void setItems(List<Item> items) {
         this.items = items;
         notifyDataSetChanged();
